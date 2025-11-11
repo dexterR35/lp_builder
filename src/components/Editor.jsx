@@ -20,7 +20,7 @@ export default function Editor({
     }),
     useSensor(TouchSensor, {
       activationConstraint: {
-        delay: 200,
+        delay: 0,
         tolerance: 5,
       },
     })
@@ -99,18 +99,18 @@ export default function Editor({
   }
 
   return (
-    <div className="flex-1 overflow-auto bg-gray-100">
+    <div className="flex-1 overflow-auto bg-gray-700">
       <DndContext
         sensors={sensors}
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
+        autoScroll={false}
       >
         <div 
           className={`bg-white shadow-2xl ${getDeviceClass()}`}
           style={{ 
             width: getDeviceWidth(), 
             minHeight: '100vh',
-            transition: 'width 0.3s ease'
           }}
         >
           {pageData.sections.map((section) => (

@@ -103,7 +103,7 @@ export function exportToHTML(pageData) {
 
     return `
     <section style="${escapeHtml(sectionStyleString)}">
-      <div style="max-width: 1200px; margin: 0 auto; padding: 32px 16px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: ${alignment}; align-items: center;">
+      <div style="max-width: 1400px; margin: 0 auto; padding: clamp(20px, 3vw, 40px) clamp(12px, 2vw, 20px); display: flex; flex-wrap: wrap; gap: clamp(16px, 2vw, 24px); justify-content: ${alignment}; align-items: center;">
         ${elementsHTML}
       </div>
     </section>`
@@ -155,6 +155,37 @@ export function exportToHTML(pageData) {
     @media (max-width: 768px) {
       section {
         padding: 40px 0 !important;
+      }
+      
+      /* Mobile responsive adjustments */
+      h1, h2, h3, .text-large {
+        font-size: clamp(20px, 4vw, 32px) !important;
+      }
+      
+      button {
+        padding: 12px 24px !important;
+        font-size: 14px !important;
+      }
+      
+      .container {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+      }
+    }
+    
+    @media (min-width: 769px) and (max-width: 1024px) {
+      /* Tablet responsive adjustments */
+      .container {
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+      }
+    }
+    
+    @media (min-width: 1025px) {
+      /* Desktop */
+      .container {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
       }
     }
   </style>

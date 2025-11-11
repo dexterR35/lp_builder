@@ -10,6 +10,7 @@ export default function Element({
   onUpdate,
   onDelete,
   onMove,
+  editDevice = 'desktop',
 }) {
   const dragStartedRef = React.useRef(false)
   const elementRef = useRef(null)
@@ -40,17 +41,92 @@ export default function Element({
     if (isDragging) {
       dragStartedRef.current = true
     } else {
-      setTimeout(() => {
-        dragStartedRef.current = false
-      }, 100)
+      dragStartedRef.current = false
     }
   }, [isDragging])
+
+  const getResponsiveStyles = (baseStyles) => {
+    const styles = { ...baseStyles }
+    
+    // Apply responsive adjustments using clamp() for better scaling
+    if (editDevice === 'mobile') {
+      // Mobile: Use clamp() for fluid responsive scaling
+      if (styles.fontSize && !styles.fontSize.includes('clamp')) {
+        const fontSize = parseFloat(styles.fontSize) || 16
+        styles.fontSize = `clamp(${Math.max(12, fontSize * 0.7)}px, 4vw, ${fontSize}px)`
+      }
+      if (styles.padding && !styles.padding.includes('clamp')) {
+        const padding = styles.padding.split(' ').map(p => {
+          const val = parseFloat(p) || 0
+          return `clamp(${Math.max(8, val * 0.6)}px, 2vw, ${val}px)`
+        }).join(' ')
+        styles.padding = padding
+      }
+      if (styles.marginBottom && !styles.marginBottom.includes('clamp')) {
+        const mb = parseFloat(styles.marginBottom) || 0
+        styles.marginBottom = `clamp(${Math.max(8, mb * 0.6)}px, 2vw, ${mb}px)`
+      }
+      if (styles.maxWidth && styles.maxWidth !== '100%' && !styles.maxWidth.includes('clamp')) {
+        const maxW = parseFloat(styles.maxWidth) || 1200
+        styles.maxWidth = `clamp(280px, 90vw, ${Math.min(340, maxW * 0.9)}px)`
+      }
+      if (styles.borderRadius && !styles.borderRadius.includes('clamp')) {
+        const br = parseFloat(styles.borderRadius) || 0
+        styles.borderRadius = `clamp(${Math.max(6, br * 0.75)}px, 2vw, ${br}px)`
+      }
+      if (styles.width && styles.width !== 'auto' && !styles.width.includes('clamp') && !styles.width.includes('%')) {
+        const w = parseFloat(styles.width) || 0
+        styles.width = `clamp(${Math.max(200, w * 0.7)}px, 85vw, ${w}px)`
+      }
+    } else if (editDevice === 'tablet') {
+      // Tablet: Use clamp() for moderate responsive scaling
+      if (styles.fontSize && !styles.fontSize.includes('clamp')) {
+        const fontSize = parseFloat(styles.fontSize) || 16
+        styles.fontSize = `clamp(${Math.max(14, fontSize * 0.85)}px, 2.5vw, ${fontSize}px)`
+      }
+      if (styles.padding && !styles.padding.includes('clamp')) {
+        const padding = styles.padding.split(' ').map(p => {
+          const val = parseFloat(p) || 0
+          return `clamp(${Math.max(10, val * 0.75)}px, 1.5vw, ${val}px)`
+        }).join(' ')
+        styles.padding = padding
+      }
+      if (styles.marginBottom && !styles.marginBottom.includes('clamp')) {
+        const mb = parseFloat(styles.marginBottom) || 0
+        styles.marginBottom = `clamp(${Math.max(12, mb * 0.75)}px, 1.5vw, ${mb}px)`
+      }
+      if (styles.maxWidth && styles.maxWidth !== '100%' && !styles.maxWidth.includes('clamp')) {
+        const maxW = parseFloat(styles.maxWidth) || 1200
+        styles.maxWidth = `clamp(500px, 80vw, ${Math.min(600, maxW * 0.85)}px)`
+      }
+      if (styles.borderRadius && !styles.borderRadius.includes('clamp')) {
+        const br = parseFloat(styles.borderRadius) || 0
+        styles.borderRadius = `clamp(${Math.max(8, br * 0.85)}px, 1.5vw, ${br}px)`
+      }
+      if (styles.width && styles.width !== 'auto' && !styles.width.includes('clamp') && !styles.width.includes('%')) {
+        const w = parseFloat(styles.width) || 0
+        styles.width = `clamp(${Math.max(300, w * 0.8)}px, 75vw, ${w}px)`
+      }
+    } else {
+      // Desktop: Still use clamp() for better scaling across screen sizes
+      if (styles.fontSize && !styles.fontSize.includes('clamp')) {
+        const fontSize = parseFloat(styles.fontSize) || 16
+        styles.fontSize = `clamp(${Math.max(16, fontSize * 0.9)}px, 1.5vw, ${fontSize}px)`
+      }
+      if (styles.maxWidth && styles.maxWidth !== '100%' && !styles.maxWidth.includes('clamp')) {
+        const maxW = parseFloat(styles.maxWidth) || 1200
+        styles.maxWidth = `clamp(800px, 70vw, ${maxW}px)`
+      }
+    }
+    
+    return styles
+  }
 
   const getElementStyle = () => {
     const position = element.position || { x: 0, y: 0 }
     
-    // Safe zone margins (minimum 16px from edges)
-    const safeZone = 16
+    // Safe zone margins (minimum 16px from edges, smaller on mobile)
+    const safeZone = editDevice === 'mobile' ? 12 : editDevice === 'tablet' ? 14 : 16
     
     // During drag, apply transform on top of position
     const left = position.x + (transform?.x || 0)
@@ -67,8 +143,15 @@ export default function Element({
       minHeight: element.styles?.height || 'auto',
     }
     
+    // Get base styles and apply responsive adjustments
+    let styles = { ...element.styles }
+    
+    // Apply responsive styles (only if not using clamp)
+    if (!styles.fontSize?.includes('clamp') && !styles.padding?.includes('clamp')) {
+      styles = getResponsiveStyles(styles)
+    }
+    
     // Handle gradient backgrounds
-    const styles = { ...element.styles }
     if (styles.background && styles.background.includes('gradient')) {
       return {
         ...baseStyle,
@@ -76,8 +159,8 @@ export default function Element({
         background: styles.background,
         backgroundColor: undefined,
         position: 'absolute',
-        left: `${Math.max(0, left)}px`,
-        top: `${Math.max(0, top)}px`,
+        left: `${Math.max(safeZone, left)}px`,
+        top: `${Math.max(safeZone, top)}px`,
       }
     }
     
@@ -85,8 +168,8 @@ export default function Element({
       ...baseStyle,
       ...styles,
       position: 'absolute',
-      left: `${Math.max(0, left)}px`,
-      top: `${Math.max(0, top)}px`,
+      left: `${Math.max(safeZone, left)}px`,
+      top: `${Math.max(safeZone, top)}px`,
     }
   }
 
@@ -126,28 +209,57 @@ export default function Element({
       let newLeft = left
       let newTop = top
 
+      // Get responsive safe zone
+      const safeZone = editDevice === 'mobile' ? 12 : editDevice === 'tablet' ? 14 : 16
+      
+      // Get actual container dimensions from the element's parent
+      let containerMaxWidth = window.innerWidth - (safeZone * 2)
+      if (elementRef.current?.offsetParent) {
+        const containerRect = elementRef.current.offsetParent.getBoundingClientRect()
+        containerMaxWidth = containerRect.width - (safeZone * 2)
+      } else {
+        // Fallback: use device-specific max widths
+        containerMaxWidth = editDevice === 'mobile' ? window.innerWidth - (safeZone * 2) : 
+                            editDevice === 'tablet' ? Math.min(800, window.innerWidth - (safeZone * 2)) : 
+                            Math.min(1400, window.innerWidth - (safeZone * 2))
+      }
+      
       // Handle resize based on which handle
       if (handle.includes('right')) {
-        newWidth = Math.max(20, width + deltaX)
+        const maxWidth = containerMaxWidth - newLeft
+        newWidth = Math.max(20, Math.min(width + deltaX, maxWidth))
       }
       if (handle.includes('left')) {
-        newWidth = Math.max(20, width - deltaX)
-        newLeft = left + deltaX
+        const maxWidth = containerMaxWidth - safeZone
+        const minLeft = safeZone
+        newWidth = Math.max(20, Math.min(width - deltaX, maxWidth))
+        newLeft = Math.max(minLeft, Math.min(left + deltaX, left + width - 20))
+        // Adjust width if left position was constrained
+        if (newLeft === minLeft) {
+          newWidth = left + width - minLeft
+        } else if (newLeft === left + width - 20) {
+          newWidth = 20
+        }
       }
       if (handle.includes('bottom')) {
         newHeight = Math.max(20, height + deltaY)
       }
       if (handle.includes('top')) {
         newHeight = Math.max(20, height - deltaY)
-        newTop = top + deltaY
+        newTop = Math.max(safeZone, top + deltaY)
+        // Adjust height if top position was constrained
+        if (newTop === safeZone) {
+          newHeight = top + height - safeZone
+        }
       }
 
-      // Safe zone margins
-      const safeZone = 16
+      // Ensure element stays within safe zone boundaries
+      const finalLeft = Math.max(safeZone, Math.min(newLeft, containerMaxWidth - newWidth))
+      const finalTop = Math.max(safeZone, newTop)
       
       // Update element
       onUpdate({
-        position: { x: Math.max(safeZone, newLeft), y: Math.max(safeZone, newTop) },
+        position: { x: finalLeft, y: finalTop },
         styles: {
           ...element.styles,
           width: `${newWidth}px`,
@@ -168,7 +280,7 @@ export default function Element({
       document.removeEventListener('mousemove', handleMouseMove)
       document.removeEventListener('mouseup', handleMouseUp)
     }
-  }, [isResizing, element.styles, onUpdate])
+  }, [isResizing, element.styles, onUpdate, editDevice])
 
   const style = getElementStyle()
 
@@ -380,7 +492,7 @@ export default function Element({
   }
 
   const position = element.position || { x: 0, y: 0 }
-  const safeZone = 16
+  const safeZone = editDevice === 'mobile' ? 12 : editDevice === 'tablet' ? 14 : 16
   const left = Math.max(safeZone, position.x + (transform?.x || 0))
   const top = Math.max(safeZone, position.y + (transform?.y || 0))
   

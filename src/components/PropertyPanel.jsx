@@ -19,10 +19,10 @@ export default function PropertyPanel({
 
   if (!element) {
     return (
-      <div className="w-80 bg-white border-l border-gray-200 p-6 overflow-y-auto">
-        <div className="text-center text-gray-500 mt-20">
-          <p className="text-lg font-medium">No element selected</p>
-          <p className="text-sm mt-2">Click on any element to edit its properties</p>
+      <div className="w-80 bg-gray-900 border-l border-gray-800 p-6 overflow-y-auto">
+        <div className="text-center text-gray-400 mt-20">
+          <p className="text-lg font-medium text-gray-300">No element selected</p>
+          <p className="text-sm mt-2 text-gray-500">Click on any element to edit its properties</p>
         </div>
       </div>
     )
@@ -42,23 +42,23 @@ export default function PropertyPanel({
   }
 
   return (
-    <div className="w-80 bg-white border-l border-gray-200 flex flex-col relative">
+    <div className="w-80 bg-gray-900 border-l border-gray-800 flex flex-col relative">
       {onClose && (
         <button
           onClick={onClose}
-          className="absolute top-2 right-2 z-10 p-1 text-gray-400 hover:text-gray-600 transition-colors"
+          className="absolute top-2 right-2 z-10 p-1 text-gray-400 hover:text-white transition-colors"
           title="Close Properties"
         >
           <X size={18} />
         </button>
       )}
-      <div className="border-b border-gray-200 flex">
+      <div className="border-b border-gray-800 flex">
         <button
           onClick={() => setActiveTab('content')}
           className={`flex-1 px-4 py-3 text-sm font-medium transition-colors ${
             activeTab === 'content'
-              ? 'bg-blue-50 text-blue-600 border-b-2 border-blue-600'
-              : 'text-gray-600 hover:text-gray-900'
+              ? 'bg-blue-600 text-white border-b-2 border-blue-500'
+              : 'text-gray-300 hover:text-white hover:bg-gray-800'
           }`}
         >
           Content
@@ -67,38 +67,38 @@ export default function PropertyPanel({
           onClick={() => setActiveTab('style')}
           className={`flex-1 px-4 py-3 text-sm font-medium transition-colors ${
             activeTab === 'style'
-              ? 'bg-blue-50 text-blue-600 border-b-2 border-blue-600'
-              : 'text-gray-600 hover:text-gray-900'
+              ? 'bg-blue-600 text-white border-b-2 border-blue-500'
+              : 'text-gray-300 hover:text-white hover:bg-gray-800'
           }`}
         >
           Style
         </button>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-6">
+      <div className="flex-1 overflow-y-auto p-6 bg-gray-900">
         {activeTab === 'content' && (
             <div className="space-y-6">
               {isSection ? (
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-gray-300 mb-2">
                       Section Type
                     </label>
-                    <div className="text-sm text-gray-600 bg-gray-50 px-3 py-2 rounded-lg">
+                    <div className="text-sm text-gray-400 bg-gray-800 px-3 py-2 rounded-lg border border-gray-700">
                       {element.type}
                     </div>
                   </div>
                 </div>
               ) : (
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-300 mb-2">
                   Content
                 </label>
                 {element.type === 'text' || element.type === 'button' || element.type === 'icon' ? (
                   <textarea
                     value={element.content}
                     onChange={(e) => handleContentChange(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 bg-gray-800 border border-gray-700 text-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500"
                     rows={element.type === 'button' || element.type === 'icon' ? 1 : 4}
                     placeholder={element.type === 'icon' ? 'Enter emoji or icon' : 'Enter content'}
                   />
@@ -108,7 +108,7 @@ export default function PropertyPanel({
                       type="text"
                       value={element.content}
                       onChange={(e) => handleContentChange(e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-3 py-2 bg-gray-800 border border-gray-700 text-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500"
                       placeholder="Image URL"
                     />
                     <input
@@ -124,7 +124,7 @@ export default function PropertyPanel({
                           reader.readAsDataURL(file)
                         }
                       }}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                      className="w-full px-3 py-2 bg-gray-800 border border-gray-700 text-gray-300 rounded-lg text-sm"
                     />
                   </div>
                 ) : element.type === 'video' ? (
@@ -132,7 +132,7 @@ export default function PropertyPanel({
                     type="text"
                     value={element.content}
                     onChange={(e) => handleContentChange(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 bg-gray-800 border border-gray-700 text-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500"
                     placeholder="YouTube embed URL (e.g., https://www.youtube.com/embed/VIDEO_ID)"
                   />
                 ) : element.type === 'divider' ? (
@@ -143,7 +143,7 @@ export default function PropertyPanel({
                   <textarea
                     value={element.content}
                     onChange={(e) => handleContentChange(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 bg-gray-800 border border-gray-700 text-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500"
                     rows={2}
                     placeholder="Container content (optional)"
                   />
@@ -151,7 +151,7 @@ export default function PropertyPanel({
                   <textarea
                     value={element.content}
                     onChange={(e) => handleContentChange(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 bg-gray-800 border border-gray-700 text-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500"
                     rows={4}
                   />
                 )}
@@ -166,13 +166,13 @@ export default function PropertyPanel({
               <>
                 {/* Section Background */}
                 <div>
-                  <h3 className="text-sm font-semibold text-gray-900 mb-3 flex items-center gap-2">
-                    <Palette size={16} />
+                  <h3 className="text-sm font-semibold text-gray-300 mb-3 flex items-center gap-2">
+                    <Palette size={16} className="text-gray-400" />
                     Background
                   </h3>
                   <div className="space-y-3">
                     <div>
-                      <label className="block text-xs text-gray-600 mb-1">Background Gradient</label>
+                      <label className="block text-xs text-gray-400 mb-1">Background Gradient</label>
                       <input
                         type="text"
                         value={element.styles?.background || element.styles?.backgroundColor || ''}
@@ -183,13 +183,13 @@ export default function PropertyPanel({
                             backgroundColor: e.target.value.includes('gradient') ? undefined : e.target.value
                           }
                         })}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                        className="w-full px-3 py-2 bg-gray-800 border border-gray-700 text-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm placeholder-gray-500"
                         placeholder="linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
                       />
                       <p className="text-xs text-gray-500 mt-1">Use CSS gradient syntax or hex color</p>
                     </div>
                     <div>
-                      <label className="block text-xs text-gray-600 mb-1">Background Image URL</label>
+                      <label className="block text-xs text-gray-400 mb-1">Background Image URL</label>
                       <input
                         type="text"
                         value={element.styles?.backgroundImage || ''}
@@ -199,12 +199,12 @@ export default function PropertyPanel({
                             backgroundImage: e.target.value
                           }
                         })}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                        className="w-full px-3 py-2 bg-gray-800 border border-gray-700 text-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm placeholder-gray-500"
                         placeholder="https://example.com/image.jpg"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs text-gray-600 mb-1">Solid Background Color</label>
+                      <label className="block text-xs text-gray-400 mb-1">Solid Background Color</label>
                       <div className="flex gap-2">
                         <input
                           type="color"
@@ -216,7 +216,7 @@ export default function PropertyPanel({
                               background: undefined
                             }
                           })}
-                          className="w-12 h-10 border border-gray-300 rounded-lg cursor-pointer"
+                          className="w-12 h-10 border border-gray-700 rounded-lg cursor-pointer bg-gray-800"
                         />
                         <input
                           type="text"
@@ -228,7 +228,7 @@ export default function PropertyPanel({
                               background: undefined
                             }
                           })}
-                          className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          className="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 text-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500"
                           placeholder="#ffffff"
                         />
                       </div>
@@ -238,13 +238,13 @@ export default function PropertyPanel({
 
                 {/* Section Spacing */}
                 <div>
-                  <h3 className="text-sm font-semibold text-gray-900 mb-3 flex items-center gap-2">
-                    <Square size={16} />
+                  <h3 className="text-sm font-semibold text-gray-300 mb-3 flex items-center gap-2">
+                    <Square size={16} className="text-gray-400" />
                     Spacing
                   </h3>
                   <div className="space-y-3">
                     <div>
-                      <label className="block text-xs text-gray-600 mb-1">Padding</label>
+                      <label className="block text-xs text-gray-400 mb-1">Padding</label>
                       <input
                         type="text"
                         value={element.styles?.padding || '0'}
@@ -254,7 +254,7 @@ export default function PropertyPanel({
                             padding: e.target.value
                           }
                         })}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-3 py-2 bg-gray-800 border border-gray-700 text-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500"
                         placeholder="80px 0"
                       />
                     </div>
@@ -265,27 +265,27 @@ export default function PropertyPanel({
               <>
                 {/* Typography */}
                 <div>
-                  <h3 className="text-sm font-semibold text-gray-900 mb-3 flex items-center gap-2">
-                    <Type size={16} />
+                  <h3 className="text-sm font-semibold text-gray-300 mb-3 flex items-center gap-2">
+                    <Type size={16} className="text-gray-400" />
                     Typography
                   </h3>
                   <div className="space-y-3">
                     <div>
-                      <label className="block text-xs text-gray-600 mb-1">Font Size</label>
+                      <label className="block text-xs text-gray-400 mb-1">Font Size</label>
                       <input
                         type="text"
                         value={element.styles?.fontSize || '16px'}
                         onChange={(e) => handleStyleChange('fontSize', e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-3 py-2 bg-gray-800 border border-gray-700 text-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500"
                         placeholder="16px"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs text-gray-600 mb-1">Font Weight</label>
+                      <label className="block text-xs text-gray-400 mb-1">Font Weight</label>
                       <select
                         value={element.styles?.fontWeight || '400'}
                         onChange={(e) => handleStyleChange('fontWeight', e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-3 py-2 bg-gray-800 border border-gray-700 text-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500"
                       >
                         <option value="300">Light</option>
                         <option value="400">Regular</option>
@@ -296,34 +296,34 @@ export default function PropertyPanel({
                       </select>
                     </div>
                     <div>
-                      <label className="block text-xs text-gray-600 mb-1">Text Align</label>
+                      <label className="block text-xs text-gray-400 mb-1">Text Align</label>
                       <div className="flex gap-2">
                         <button
                           onClick={() => handleStyleChange('textAlign', 'left')}
-                          className={`flex-1 p-2 border rounded-lg ${
+                          className={`flex-1 p-2 border rounded-lg transition-colors ${
                             element.styles?.textAlign === 'left'
-                              ? 'bg-blue-50 border-blue-500 text-blue-600'
-                              : 'border-gray-300 hover:bg-gray-50'
+                              ? 'bg-blue-600 border-blue-500 text-white'
+                              : 'bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-gray-300'
                           }`}
                         >
                           <AlignLeft size={16} className="mx-auto" />
                         </button>
                         <button
                           onClick={() => handleStyleChange('textAlign', 'center')}
-                          className={`flex-1 p-2 border rounded-lg ${
+                          className={`flex-1 p-2 border rounded-lg transition-colors ${
                             element.styles?.textAlign === 'center'
-                              ? 'bg-blue-50 border-blue-500 text-blue-600'
-                              : 'border-gray-300 hover:bg-gray-50'
+                              ? 'bg-blue-600 border-blue-500 text-white'
+                              : 'bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-gray-300'
                           }`}
                         >
                           <AlignCenter size={16} className="mx-auto" />
                         </button>
                         <button
                           onClick={() => handleStyleChange('textAlign', 'right')}
-                          className={`flex-1 p-2 border rounded-lg ${
+                          className={`flex-1 p-2 border rounded-lg transition-colors ${
                             element.styles?.textAlign === 'right'
-                              ? 'bg-blue-50 border-blue-500 text-blue-600'
-                              : 'border-gray-300 hover:bg-gray-50'
+                              ? 'bg-blue-600 border-blue-500 text-white'
+                              : 'bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-gray-300'
                           }`}
                         >
                           <AlignRight size={16} className="mx-auto" />
@@ -336,108 +336,141 @@ export default function PropertyPanel({
                 {/* Colors */}
                 {(element.type === 'text' || element.type === 'button') && (
                   <div>
-                    <h3 className="text-sm font-semibold text-gray-900 mb-3 flex items-center gap-2">
-                      <Palette size={16} />
+                    <h3 className="text-sm font-semibold text-gray-300 mb-3 flex items-center gap-2">
+                      <Palette size={16} className="text-gray-400" />
                       Colors
                     </h3>
                     <div className="space-y-3">
                       <div>
-                        <label className="block text-xs text-gray-600 mb-1">Text Color</label>
+                        <label className="block text-xs text-gray-400 mb-1">Text Color</label>
                         <div className="flex gap-2">
                           <input
                             type="color"
                             value={element.styles?.color || '#000000'}
                             onChange={(e) => handleStyleChange('color', e.target.value)}
-                            className="w-12 h-10 border border-gray-300 rounded-lg cursor-pointer"
+                            className="w-12 h-10 border border-gray-700 rounded-lg cursor-pointer bg-gray-800"
                           />
                           <input
                             type="text"
                             value={element.styles?.color || '#000000'}
                             onChange={(e) => handleStyleChange('color', e.target.value)}
-                            className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            className="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 text-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500"
                             placeholder="#000000"
                           />
                         </div>
                       </div>
-                      <div>
-                        <label className="block text-xs text-gray-600 mb-1">Background Gradient</label>
-                        <input
-                          type="text"
-                          value={element.styles?.background || element.styles?.backgroundColor || (element.type === 'button' ? '#3b82f6' : 'transparent')}
-                          onChange={(e) => {
-                            const value = e.target.value
-                            if (value.includes('gradient')) {
-                              handleStyleChange('background', value)
-                              handleStyleChange('backgroundColor', undefined)
-                            } else {
-                              handleStyleChange('backgroundColor', value)
-                              handleStyleChange('background', undefined)
-                            }
-                          }}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent mb-2"
-                          placeholder={element.type === 'button' ? 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)' : 'transparent or gradient'}
-                        />
-                        <div className="flex gap-2">
-                          <input
-                            type="color"
-                            value={element.styles?.backgroundColor || (element.type === 'button' ? '#3b82f6' : '#ffffff')}
-                            onChange={(e) => {
-                              handleStyleChange('backgroundColor', e.target.value)
-                              handleStyleChange('background', undefined)
-                            }}
-                            className="w-12 h-10 border border-gray-300 rounded-lg cursor-pointer"
-                          />
-                          <input
-                            type="text"
-                            value={element.styles?.backgroundColor || (element.type === 'button' ? '#3b82f6' : 'transparent')}
-                            onChange={(e) => {
-                              handleStyleChange('backgroundColor', e.target.value)
-                              handleStyleChange('background', undefined)
-                            }}
-                            className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            placeholder={element.type === 'button' ? '#3b82f6' : 'transparent'}
-                          />
+                      {element.type === 'button' && (
+                        <div>
+                          <label className="block text-xs text-gray-400 mb-1">Background Color</label>
+                          <div className="flex gap-2">
+                            <input
+                              type="color"
+                              value={element.styles?.backgroundColor || '#3b82f6'}
+                              onChange={(e) => {
+                                handleStyleChange('backgroundColor', e.target.value)
+                                handleStyleChange('background', undefined)
+                              }}
+                              className="w-12 h-10 border border-gray-700 rounded-lg cursor-pointer bg-gray-800"
+                            />
+                            <input
+                              type="text"
+                              value={element.styles?.backgroundColor || '#3b82f6'}
+                              onChange={(e) => {
+                                handleStyleChange('backgroundColor', e.target.value)
+                                handleStyleChange('background', undefined)
+                              }}
+                              className="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 text-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500"
+                              placeholder="#3b82f6"
+                            />
+                          </div>
                         </div>
-                        <p className="text-xs text-gray-500 mt-1">Use gradient syntax or solid color</p>
-                      </div>
+                      )}
+                      {element.type !== 'button' && element.type !== 'text' && (
+                        <>
+                          <div>
+                            <label className="block text-xs text-gray-400 mb-1">Background Gradient</label>
+                            <input
+                              type="text"
+                              value={element.styles?.background || element.styles?.backgroundColor || 'transparent'}
+                              onChange={(e) => {
+                                const value = e.target.value
+                                if (value.includes('gradient')) {
+                                  handleStyleChange('background', value)
+                                  handleStyleChange('backgroundColor', undefined)
+                                } else {
+                                  handleStyleChange('backgroundColor', value)
+                                  handleStyleChange('background', undefined)
+                                }
+                              }}
+                              className="w-full px-3 py-2 bg-gray-800 border border-gray-700 text-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500 mb-2"
+                              placeholder="transparent or gradient"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-xs text-gray-400 mb-1">Solid Background Color</label>
+                            <div className="flex gap-2">
+                              <input
+                                type="color"
+                                value={element.styles?.backgroundColor || '#ffffff'}
+                                onChange={(e) => {
+                                  handleStyleChange('backgroundColor', e.target.value)
+                                  handleStyleChange('background', undefined)
+                                }}
+                                className="w-12 h-10 border border-gray-700 rounded-lg cursor-pointer bg-gray-800"
+                              />
+                              <input
+                                type="text"
+                                value={element.styles?.backgroundColor || 'transparent'}
+                                onChange={(e) => {
+                                  handleStyleChange('backgroundColor', e.target.value)
+                                  handleStyleChange('background', undefined)
+                                }}
+                                className="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 text-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500"
+                                placeholder="transparent"
+                              />
+                            </div>
+                            <p className="text-xs text-gray-500 mt-1">Use gradient syntax or solid color</p>
+                          </div>
+                        </>
+                      )}
                     </div>
                   </div>
                 )}
 
                 {/* Spacing */}
                 <div>
-                  <h3 className="text-sm font-semibold text-gray-900 mb-3 flex items-center gap-2">
-                    <Square size={16} />
+                  <h3 className="text-sm font-semibold text-gray-300 mb-3 flex items-center gap-2">
+                    <Square size={16} className="text-gray-400" />
                     Spacing
                   </h3>
                   <div className="space-y-3">
                     <div>
-                      <label className="block text-xs text-gray-600 mb-1">Padding</label>
+                      <label className="block text-xs text-gray-400 mb-1">Padding</label>
                       <input
                         type="text"
                         value={element.styles?.padding || '0'}
                         onChange={(e) => handleStyleChange('padding', e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-3 py-2 bg-gray-800 border border-gray-700 text-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500"
                         placeholder="12px 24px"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs text-gray-600 mb-1">Margin</label>
+                      <label className="block text-xs text-gray-400 mb-1">Margin</label>
                       <input
                         type="text"
                         value={element.styles?.margin || '0'}
                         onChange={(e) => handleStyleChange('margin', e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-3 py-2 bg-gray-800 border border-gray-700 text-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500"
                         placeholder="0 auto"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs text-gray-600 mb-1">Border Radius</label>
+                      <label className="block text-xs text-gray-400 mb-1">Border Radius</label>
                       <input
                         type="text"
                         value={element.styles?.borderRadius || '0'}
                         onChange={(e) => handleStyleChange('borderRadius', e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-3 py-2 bg-gray-800 border border-gray-700 text-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500"
                         placeholder="8px"
                       />
                     </div>
@@ -446,27 +479,27 @@ export default function PropertyPanel({
 
                 {/* Borders */}
                 <div>
-                  <h3 className="text-sm font-semibold text-gray-900 mb-3 flex items-center gap-2">
-                    <Square size={16} />
+                  <h3 className="text-sm font-semibold text-gray-300 mb-3 flex items-center gap-2">
+                    <Square size={16} className="text-gray-400" />
                     Borders
                   </h3>
                   <div className="space-y-3">
                     <div>
-                      <label className="block text-xs text-gray-600 mb-1">Border Width</label>
+                      <label className="block text-xs text-gray-400 mb-1">Border Width</label>
                       <input
                         type="text"
                         value={element.styles?.borderWidth || ''}
                         onChange={(e) => handleStyleChange('borderWidth', e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-3 py-2 bg-gray-800 border border-gray-700 text-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500"
                         placeholder="1px"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs text-gray-600 mb-1">Border Style</label>
+                      <label className="block text-xs text-gray-400 mb-1">Border Style</label>
                       <select
                         value={element.styles?.borderStyle || 'solid'}
                         onChange={(e) => handleStyleChange('borderStyle', e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-3 py-2 bg-gray-800 border border-gray-700 text-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500"
                       >
                         <option value="none">None</option>
                         <option value="solid">Solid</option>
@@ -476,19 +509,19 @@ export default function PropertyPanel({
                       </select>
                     </div>
                     <div>
-                      <label className="block text-xs text-gray-600 mb-1">Border Color</label>
+                      <label className="block text-xs text-gray-400 mb-1">Border Color</label>
                       <div className="flex gap-2">
                         <input
                           type="color"
                           value={element.styles?.borderColor || '#000000'}
                           onChange={(e) => handleStyleChange('borderColor', e.target.value)}
-                          className="w-12 h-10 border border-gray-300 rounded-lg cursor-pointer"
+                          className="w-12 h-10 border border-gray-700 rounded-lg cursor-pointer bg-gray-800"
                         />
                         <input
                           type="text"
                           value={element.styles?.borderColor || '#000000'}
                           onChange={(e) => handleStyleChange('borderColor', e.target.value)}
-                          className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          className="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 text-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500"
                           placeholder="#000000"
                         />
                       </div>
@@ -498,23 +531,23 @@ export default function PropertyPanel({
 
                 {/* Shadows & Effects */}
                 <div>
-                  <h3 className="text-sm font-semibold text-gray-900 mb-3 flex items-center gap-2">
-                    <Square size={16} />
+                  <h3 className="text-sm font-semibold text-gray-300 mb-3 flex items-center gap-2">
+                    <Square size={16} className="text-gray-400" />
                     Shadows & Effects
                   </h3>
                   <div className="space-y-3">
                     <div>
-                      <label className="block text-xs text-gray-600 mb-1">Box Shadow</label>
+                      <label className="block text-xs text-gray-400 mb-1">Box Shadow</label>
                       <input
                         type="text"
                         value={element.styles?.boxShadow || ''}
                         onChange={(e) => handleStyleChange('boxShadow', e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-3 py-2 bg-gray-800 border border-gray-700 text-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500"
                         placeholder="0 4px 6px rgba(0,0,0,0.1)"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs text-gray-600 mb-1">Opacity</label>
+                      <label className="block text-xs text-gray-400 mb-1">Opacity</label>
                       <input
                         type="range"
                         min="0"
@@ -522,29 +555,29 @@ export default function PropertyPanel({
                         step="0.1"
                         value={element.styles?.opacity || 1}
                         onChange={(e) => handleStyleChange('opacity', e.target.value)}
-                        className="w-full"
+                        className="w-full accent-blue-600"
                       />
                       <div className="text-xs text-gray-500 mt-1">
                         {element.styles?.opacity || 1}
                       </div>
                     </div>
                     <div>
-                      <label className="block text-xs text-gray-600 mb-1">Transform</label>
+                      <label className="block text-xs text-gray-400 mb-1">Transform</label>
                       <input
                         type="text"
                         value={element.styles?.transform || ''}
                         onChange={(e) => handleStyleChange('transform', e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-3 py-2 bg-gray-800 border border-gray-700 text-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500"
                         placeholder="rotate(5deg) scale(1.1)"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs text-gray-600 mb-1">Transition</label>
+                      <label className="block text-xs text-gray-400 mb-1">Transition</label>
                       <input
                         type="text"
                         value={element.styles?.transition || ''}
                         onChange={(e) => handleStyleChange('transition', e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-3 py-2 bg-gray-800 border border-gray-700 text-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500"
                         placeholder="all 0.3s ease"
                       />
                     </div>
@@ -558,11 +591,11 @@ export default function PropertyPanel({
 
         {/* Actions - Always visible for non-section elements */}
         {!isSection && (
-          <div className="pt-4 border-t border-gray-200 space-y-2">
+          <div className="pt-4 border-t border-gray-800 space-y-2">
             <div className="grid grid-cols-2 gap-2">
               <button
                 onClick={copyElement}
-                className="px-4 py-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors text-sm font-medium"
+                className="px-4 py-2 bg-gray-800 text-gray-300 border border-gray-700 rounded-lg hover:bg-gray-700 hover:border-gray-600 transition-colors text-sm font-medium"
               >
                 Copy
               </button>
@@ -577,10 +610,10 @@ export default function PropertyPanel({
                   }
                 }}
                 disabled={!canPaste}
-                className={`px-4 py-2 rounded-lg transition-colors text-sm font-medium ${
+                className={`px-4 py-2 rounded-lg transition-colors text-sm font-medium border ${
                   canPaste
-                    ? 'bg-blue-50 text-blue-600 hover:bg-blue-100'
-                    : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                    ? 'bg-gray-800 text-gray-300 border-gray-700 hover:bg-gray-700 hover:border-gray-600'
+                    : 'bg-gray-900 text-gray-600 border-gray-800 cursor-not-allowed'
                 }`}
               >
                 Paste
@@ -588,7 +621,7 @@ export default function PropertyPanel({
             </div>
             <button
               onClick={() => deleteElement(element.id)}
-              className="w-full px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors text-sm font-medium"
+              className="w-full px-4 py-2 bg-red-900 text-red-200 border border-red-800 rounded-lg hover:bg-red-800 hover:border-red-700 transition-colors text-sm font-medium"
             >
               Delete Element
             </button>
@@ -597,48 +630,48 @@ export default function PropertyPanel({
 
         {/* Add Elements - Available in both tabs for sections */}
         {isSection && (
-          <div className="pt-4 border-t border-gray-200 space-y-2">
-            <p className="text-sm font-medium text-gray-700 mb-2">Add Elements</p>
+          <div className="pt-4 border-t border-gray-800 space-y-2">
+            <p className="text-sm font-medium text-gray-300 mb-2">Add Elements</p>
             <div className="grid grid-cols-2 gap-2">
               <button
                 onClick={() => addElement(element.id, 'text')}
-                className="px-4 py-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors text-sm font-medium"
+                className="px-4 py-2 bg-gray-800 text-gray-300 border border-gray-700 rounded-lg hover:bg-gray-700 hover:border-gray-600 transition-colors text-sm font-medium"
               >
                 Text
               </button>
               <button
                 onClick={() => addElement(element.id, 'button')}
-                className="px-4 py-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors text-sm font-medium"
+                className="px-4 py-2 bg-gray-800 text-gray-300 border border-gray-700 rounded-lg hover:bg-gray-700 hover:border-gray-600 transition-colors text-sm font-medium"
               >
                 Button
               </button>
               <button
                 onClick={() => addElement(element.id, 'image')}
-                className="px-4 py-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors text-sm font-medium"
+                className="px-4 py-2 bg-gray-800 text-gray-300 border border-gray-700 rounded-lg hover:bg-gray-700 hover:border-gray-600 transition-colors text-sm font-medium"
               >
                 Image
               </button>
               <button
                 onClick={() => addElement(element.id, 'video')}
-                className="px-4 py-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors text-sm font-medium"
+                className="px-4 py-2 bg-gray-800 text-gray-300 border border-gray-700 rounded-lg hover:bg-gray-700 hover:border-gray-600 transition-colors text-sm font-medium"
               >
                 Video
               </button>
               <button
                 onClick={() => addElement(element.id, 'icon')}
-                className="px-4 py-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors text-sm font-medium"
+                className="px-4 py-2 bg-gray-800 text-gray-300 border border-gray-700 rounded-lg hover:bg-gray-700 hover:border-gray-600 transition-colors text-sm font-medium"
               >
                 Icon
               </button>
               <button
                 onClick={() => addElement(element.id, 'divider')}
-                className="px-4 py-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors text-sm font-medium"
+                className="px-4 py-2 bg-gray-800 text-gray-300 border border-gray-700 rounded-lg hover:bg-gray-700 hover:border-gray-600 transition-colors text-sm font-medium"
               >
                 Divider
               </button>
               <button
                 onClick={() => addElement(element.id, 'container')}
-                className="px-4 py-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors text-sm font-medium col-span-2"
+                className="px-4 py-2 bg-gray-800 text-gray-300 border border-gray-700 rounded-lg hover:bg-gray-700 hover:border-gray-600 transition-colors text-sm font-medium col-span-2"
               >
                 Container
               </button>

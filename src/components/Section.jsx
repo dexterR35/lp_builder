@@ -20,15 +20,48 @@ export default function Section({
   const getSectionStyles = () => {
     const styles = { ...section.styles }
     
-    // Handle responsive hero height
+    // Handle responsive section heights based on device
     if (section.id === 'hero') {
-      if (editDevice === 'mobile' || editDevice === 'tablet') {
-        styles.height = '100%'
-        styles.minHeight = '100%'
+      if (editDevice === 'mobile') {
+        styles.height = '90vh'
+        styles.minHeight = '90vh'
+      } else if (editDevice === 'tablet') {
+        styles.height = '85vh'
+        styles.minHeight = '85vh'
       } else {
-        // Desktop: keep calc(100vh - 4em)
-        styles.height = styles.height || 'calc(100vh - 4em)'
-        styles.minHeight = styles.minHeight || 'calc(100vh - 4em)'
+        // Desktop: calc(100vh - 4em)
+        styles.height = 'calc(100vh - 4em)'
+        styles.minHeight = 'calc(100vh - 4em)'
+      }
+    } else if (section.id === 'steps') {
+      if (editDevice === 'mobile') {
+        styles.height = 'auto'
+        styles.minHeight = '400px'
+        styles.padding = '40px 0'
+      } else if (editDevice === 'tablet') {
+        styles.height = 'auto'
+        styles.minHeight = '450px'
+        styles.padding = '60px 0'
+      } else {
+        styles.height = '500px'
+        styles.minHeight = '500px'
+        styles.padding = '80px 0'
+      }
+    } else if (section.id === 'payment') {
+      if (editDevice === 'mobile') {
+        styles.padding = '40px 0'
+      } else if (editDevice === 'tablet') {
+        styles.padding = '60px 0'
+      } else {
+        styles.padding = '80px 0'
+      }
+    } else if (section.id === 'footer') {
+      if (editDevice === 'mobile') {
+        styles.padding = '40px 0 20px'
+      } else if (editDevice === 'tablet') {
+        styles.padding = '50px 0 25px'
+      } else {
+        styles.padding = '60px 0 30px'
       }
     }
     
@@ -63,18 +96,28 @@ export default function Section({
         }
       }}
     >
-      <div className="container mx-auto px-5" style={{ height: section.id === 'header' ? '100%' : 'auto' }}>
+      <div 
+        className="container mx-auto" 
+        style={{ 
+          height: section.id === 'header' ? '100%' : 'auto',
+          paddingLeft: editDevice === 'mobile' ? 'clamp(12px, 3vw, 16px)' : editDevice === 'tablet' ? 'clamp(16px, 2.5vw, 20px)' : 'clamp(20px, 2vw, 24px)',
+          paddingRight: editDevice === 'mobile' ? 'clamp(12px, 3vw, 16px)' : editDevice === 'tablet' ? 'clamp(16px, 2.5vw, 20px)' : 'clamp(20px, 2vw, 24px)',
+          paddingTop: section.id === 'header' ? '0' : (editDevice === 'mobile' ? 'clamp(20px, 3vw, 30px)' : editDevice === 'tablet' ? 'clamp(30px, 2.5vw, 40px)' : 'clamp(40px, 2vw, 50px)'),
+          paddingBottom: section.id === 'header' ? '0' : (editDevice === 'mobile' ? 'clamp(20px, 3vw, 30px)' : editDevice === 'tablet' ? 'clamp(30px, 2.5vw, 40px)' : 'clamp(40px, 2vw, 50px)'),
+        }}
+      >
         <div 
           className="relative"
           style={{ 
-            minHeight: section.id === 'header' ? '4em' : '200px',
+            minHeight: section.id === 'header' ? '4em' : (editDevice === 'mobile' ? 'clamp(80px, 15vh, 120px)' : editDevice === 'tablet' ? 'clamp(120px, 20vh, 180px)' : 'clamp(200px, 25vh, 300px)'),
             height: section.id === 'header' ? '4em' : 'auto',
             width: '100%',
-            maxWidth: '1400px',
+            maxWidth: editDevice === 'mobile' ? '100%' : editDevice === 'tablet' ? 'clamp(600px, 90vw, 800px)' : 'clamp(1200px, 85vw, 1400px)',
             margin: '0 auto',
             display: section.id === 'header' ? 'flex' : 'block',
             alignItems: section.id === 'header' ? 'center' : 'normal',
             justifyContent: section.id === 'header' ? 'space-between' : 'normal',
+            padding: '0',
           }}
           onClick={(e) => {
             // Select section when clicking on empty area, but not if clicking delete button
@@ -93,6 +136,7 @@ export default function Section({
               onUpdate={(updates) => updateElement(element.id, updates)}
               onDelete={() => deleteElement(element.id)}
               onMove={(position) => moveElement(element.id, position)}
+              editDevice={editDevice}
             />
           ))}
         </div>
