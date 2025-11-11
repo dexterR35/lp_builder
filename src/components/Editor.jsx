@@ -57,7 +57,7 @@ export default function Editor({
     // Check if dropping on a section
     const targetSection = pageData.sections.find(s => s.id === over.id)
     
-    // Only allow movement within the same section
+    // Only allow movement within the same section - prevent cross-section movement
     if (targetSection && targetSection.id === sourceSection.id) {
       // Calculate new position based on delta
       const safeZone = 16
@@ -69,6 +69,10 @@ export default function Editor({
       
       // Update position within same section
       updateElement(active.id, { position: newPosition })
+    } else if (targetSection && targetSection.id !== sourceSection.id) {
+      // Prevent dropping elements in different sections
+      // Just return without updating position
+      return
     }
   }
 
@@ -95,7 +99,7 @@ export default function Editor({
   }
 
   return (
-    <div className="flex-1 overflow-auto bg-gray-100 p-8">
+    <div className="flex-1 overflow-auto bg-gray-100">
       <DndContext
         sensors={sensors}
         onDragStart={handleDragStart}

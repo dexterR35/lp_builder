@@ -1,4 +1,4 @@
-import { Download, Eye, EyeOff, Monitor, Tablet, Smartphone, Save, Undo, Redo, Copy, Clipboard } from 'lucide-react'
+import { Download, Eye, EyeOff, Monitor, Tablet, Smartphone, Save, Undo, Redo, Copy, Clipboard, X } from 'lucide-react'
 import { exportToHTML } from '../utils/export'
 
 export default function Toolbar({ 
@@ -17,6 +17,7 @@ export default function Toolbar({
   copyElement,
   pasteElement,
   canPaste,
+  onClose,
 }) {
   const handleExport = () => {
     const html = exportToHTML(pageData)
@@ -41,7 +42,16 @@ export default function Toolbar({
   }
 
   return (
-    <div className="w-16 bg-gray-900 flex flex-col items-center py-4 gap-4 border-r border-gray-800">
+    <div className="w-16 bg-gray-900 flex flex-col items-center py-4 gap-4 border-r border-gray-800 relative">
+      {onClose && (
+        <button
+          onClick={onClose}
+          className="absolute top-2 right-2 p-1 text-gray-400 hover:text-white transition-colors"
+          title="Close Toolbar"
+        >
+          <X size={16} />
+        </button>
+      )}
       <button
         onClick={() => setIsPreviewMode(!isPreviewMode)}
         className={`p-3 rounded-lg transition-colors ${

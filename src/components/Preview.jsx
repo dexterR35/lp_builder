@@ -167,7 +167,7 @@ export default function Preview({ pageData, device }) {
   }
 
   return (
-    <div className="flex-1 overflow-auto bg-gray-100 p-8">
+    <div className="flex-1 overflow-auto bg-gray-100 ">
       <div
         className={`bg-white shadow-2xl ${getDeviceClass()}`}
         style={{ width: getDeviceWidth(), minHeight: '100vh' }}

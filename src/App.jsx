@@ -11,6 +11,8 @@ function App() {
   const [isPreviewMode, setIsPreviewMode] = useState(false)
   const [previewDevice, setPreviewDevice] = useState('desktop')
   const [editDevice, setEditDevice] = useState('desktop') // Device for editing mode
+  const [isToolbarOpen, setIsToolbarOpen] = useState(true)
+  const [isPropertyPanelOpen, setIsPropertyPanelOpen] = useState(true)
   
   // Undo/Redo functionality
   const historyRef = useRef([initialPageData])
@@ -175,6 +177,7 @@ function App() {
         height: 'auto',
         border: 'none',
         cursor: 'pointer',
+        background: undefined,
       },
       image: {
         width: '400px',
@@ -328,23 +331,38 @@ function App() {
 
   return (
     <div className="flex h-screen bg-gray-50">
-      <Toolbar 
-        isPreviewMode={isPreviewMode}
-        setIsPreviewMode={setIsPreviewMode}
-        previewDevice={previewDevice}
-        setPreviewDevice={setPreviewDevice}
-        editDevice={editDevice}
-        setEditDevice={setEditDevice}
-        pageData={pageData}
-        exportHTML={exportHTML}
-        undo={undo}
-        redo={redo}
-        canUndo={historyIndexRef.current > 0}
-        canRedo={historyIndexRef.current < historyRef.current.length - 1}
-        copyElement={copyElement}
-        pasteElement={pasteElement}
-        canPaste={!!copiedElement}
-      />
+      {isToolbarOpen && (
+        <Toolbar 
+          isPreviewMode={isPreviewMode}
+          setIsPreviewMode={setIsPreviewMode}
+          previewDevice={previewDevice}
+          setPreviewDevice={setPreviewDevice}
+          editDevice={editDevice}
+          setEditDevice={setEditDevice}
+          pageData={pageData}
+          exportHTML={exportHTML}
+          undo={undo}
+          redo={redo}
+          canUndo={historyIndexRef.current > 0}
+          canRedo={historyIndexRef.current < historyRef.current.length - 1}
+          copyElement={copyElement}
+          pasteElement={pasteElement}
+          canPaste={!!copiedElement}
+          onClose={() => setIsToolbarOpen(false)}
+        />
+      )}
+      
+      {!isToolbarOpen && (
+        <button
+          onClick={() => setIsToolbarOpen(true)}
+          className="fixed left-0 top-4 z-50 p-2 bg-gray-900 text-white rounded-r-lg shadow-lg hover:bg-gray-800 transition-colors"
+          title="Open Toolbar"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M9 18l6-6-6-6"/>
+          </svg>
+        </button>
+      )}
       
       <div className="flex-1 flex overflow-hidden">
         {isPreviewMode ? (
@@ -367,7 +385,7 @@ function App() {
           />
         )}
         
-        {!isPreviewMode && (
+        {!isPreviewMode && isPropertyPanelOpen && (
           <PropertyPanel
             selectedElement={selectedElement}
             pageData={pageData}
@@ -378,7 +396,20 @@ function App() {
             copyElement={copyElement}
             pasteElement={pasteElement}
             canPaste={!!copiedElement}
+            onClose={() => setIsPropertyPanelOpen(false)}
           />
+        )}
+        
+        {!isPreviewMode && !isPropertyPanelOpen && (
+          <button
+            onClick={() => setIsPropertyPanelOpen(true)}
+            className="fixed right-0 top-4 z-50 p-2 bg-white text-gray-700 border border-gray-200 rounded-l-lg shadow-lg hover:bg-gray-50 transition-colors"
+            title="Open Properties"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M15 18l-6-6 6-6"/>
+            </svg>
+          </button>
         )}
       </div>
     </div>

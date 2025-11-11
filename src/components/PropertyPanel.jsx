@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Type, Palette, Image as ImageIcon, Square, AlignLeft, AlignCenter, AlignRight } from 'lucide-react'
+import { Type, Palette, Image as ImageIcon, Square, AlignLeft, AlignCenter, AlignRight, X } from 'lucide-react'
 
 export default function PropertyPanel({
   selectedElement,
@@ -11,6 +11,7 @@ export default function PropertyPanel({
   copyElement,
   pasteElement,
   canPaste,
+  onClose,
 }) {
   const element = findElement(pageData, selectedElement)
   const [activeTab, setActiveTab] = useState('content')
@@ -41,7 +42,16 @@ export default function PropertyPanel({
   }
 
   return (
-    <div className="w-80 bg-white border-l border-gray-200 flex flex-col">
+    <div className="w-80 bg-white border-l border-gray-200 flex flex-col relative">
+      {onClose && (
+        <button
+          onClick={onClose}
+          className="absolute top-2 right-2 z-10 p-1 text-gray-400 hover:text-gray-600 transition-colors"
+          title="Close Properties"
+        >
+          <X size={18} />
+        </button>
+      )}
       <div className="border-b border-gray-200 flex">
         <button
           onClick={() => setActiveTab('content')}

@@ -23,7 +23,7 @@ export const initialPageData = {
         {
           id: 'header-logo',
           type: 'text',
-          content: '✨ netbet',
+          content: '🎰 NetBet Casino',
           styles: {
             fontSize: '28px',
             fontWeight: '800',
@@ -43,12 +43,12 @@ export const initialPageData = {
         {
           id: 'header-cta',
           type: 'button',
-          content: 'Get Started',
+          content: 'Sign Up & Play',
           styles: {
             fontSize: '15px',
             fontWeight: '600',
             color: '#ffffff',
-            background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
+            backgroundColor: '#f59e0b',
             padding: '12px 28px',
             borderRadius: '10px',
             textAlign: 'center',
@@ -56,6 +56,7 @@ export const initialPageData = {
             cursor: 'pointer',
             margin: '0',
             letterSpacing: '0.3px',
+            boxShadow: '0 4px 12px rgba(245, 158, 11, 0.4)',
           },
           position: { x: 0, y: 0 }
         }
@@ -78,7 +79,7 @@ export const initialPageData = {
         {
           id: 'hero-title',
           type: 'text',
-          content: 'Build Stunning Landing Pages\nIn Minutes, Not Hours',
+          content: 'Welcome Bonus\nUp to $500 + 200 Free Spins',
           styles: {
             fontSize: 'clamp(36px, 5vw, 72px)',
             fontWeight: '900',
@@ -87,7 +88,7 @@ export const initialPageData = {
             marginBottom: '28px',
             lineHeight: '1.1',
             letterSpacing: '-1.5px',
-            textShadow: '0 2px 20px rgba(0, 0, 0, 0.2)',
+            textShadow: '0 2px 20px rgba(0, 0, 0, 0.3)',
             maxWidth: '900px',
             marginLeft: 'auto',
             marginRight: 'auto',
@@ -98,7 +99,7 @@ export const initialPageData = {
         {
           id: 'hero-subtitle',
           type: 'text',
-          content: 'Create beautiful, fully customizable landing pages with our intuitive drag-and-drop builder. No coding required.',
+          content: 'Join thousands of players enjoying the best online casino experience. Play slots, table games, and live dealers with instant withdrawals.',
           styles: {
             fontSize: '20px',
             fontWeight: '400',
@@ -116,12 +117,12 @@ export const initialPageData = {
         {
           id: 'hero-cta-primary',
           type: 'button',
-          content: 'Start Building Free',
+          content: 'Claim Bonus Now',
           styles: {
             fontSize: '17px',
             fontWeight: '600',
             color: '#ffffff',
-            background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+            backgroundColor: '#f59e0b',
             padding: '20px 44px',
             borderRadius: '14px',
             textAlign: 'center',
@@ -129,13 +130,14 @@ export const initialPageData = {
             cursor: 'pointer',
             marginRight: '16px',
             letterSpacing: '0.3px',
+            boxShadow: '0 8px 20px rgba(245, 158, 11, 0.5)',
           },
           position: { x: 0, y: 0 }
         },
         {
           id: 'hero-cta-secondary',
           type: 'button',
-          content: 'Watch Demo',
+          content: 'View Games',
           styles: {
             fontSize: '17px',
             fontWeight: '600',
@@ -156,17 +158,18 @@ export const initialPageData = {
       id: 'steps',
       type: 'steps',
       styles: {
-        backgroundColor: '#141C33',
-        padding: '20px 0',
+        backgroundColor: '#0f172a',
+        padding: '80px 0',
         height: '500px',
         minHeight: '500px',
         textAlign: 'center',
+        background: 'linear-gradient(180deg, #0f172a 0%, #1e293b 100%)',
       },
       children: [
         {
           id: 'steps-title',
           type: 'text',
-          content: 'How It Works',
+          content: 'Why Choose NetBet Casino?',
           styles: {
             fontSize: 'clamp(32px, 4vw, 56px)',
             fontWeight: '800',
@@ -184,7 +187,7 @@ export const initialPageData = {
         {
           id: 'steps-subtitle',
           type: 'text',
-          content: 'Three simple steps to create your perfect landing page',
+          content: 'Experience the ultimate online gaming platform with premium features and exclusive bonuses',
           styles: {
             fontSize: '19px',
             fontWeight: '400',
@@ -196,24 +199,23 @@ export const initialPageData = {
             marginRight: 'auto',
             padding: '0 24px',
             lineHeight: '1.6',
-       
           },
           position: { x: 0, y: 0 }
         },
         {
           id: 'step-1',
           type: 'text',
-          content: '🎨\n\nDesign\n\nDrag and drop elements to build your page visually',
+          content: '🎰\n\n1000+ Games\n\nSlots, table games, live dealers, and more',
           styles: {
             fontSize: '18px',
             fontWeight: '600',
-            color: '#111827',
+            color: '#ffffff',
             textAlign: 'center',
             padding: '52px 36px',
-            background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
+            backgroundColor: '#1e293b',
             borderRadius: '24px',
-            boxShadow: '0 10px 25px -5px rgba(102, 126, 234, 0.15), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-            border: '1px solid rgba(102, 126, 234, 0.1)',
+            boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2)',
+            border: '2px solid rgba(245, 158, 11, 0.3)',
             maxWidth: '340px',
             margin: '0 auto',
             lineHeight: '1.7',
@@ -224,17 +226,17 @@ export const initialPageData = {
         {
           id: 'step-2',
           type: 'text',
-          content: '✨\n\nCustomize\n\nEdit colors, fonts, and styles to match your brand perfectly',
+          content: '⚡\n\nInstant Withdrawals\n\nFast and secure payment processing',
           styles: {
             fontSize: '18px',
             fontWeight: '600',
-            color: '#111827',
+            color: '#ffffff',
             textAlign: 'center',
             padding: '52px 36px',
-            background: 'linear-gradient(135deg, #ffffff 0%, #fef3f2 100%)',
+            backgroundColor: '#1e293b',
             borderRadius: '24px',
-            boxShadow: '0 10px 25px -5px rgba(239, 68, 68, 0.15), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-            border: '1px solid rgba(239, 68, 68, 0.1)',
+            boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2)',
+            border: '2px solid rgba(245, 158, 11, 0.3)',
             maxWidth: '340px',
             margin: '0 auto',
             lineHeight: '1.7',
@@ -245,17 +247,17 @@ export const initialPageData = {
         {
           id: 'step-3',
           type: 'text',
-          content: '🚀\n\nExport\n\nDownload clean, production-ready HTML and CSS code',
+          content: '🎁\n\nDaily Bonuses\n\nExclusive rewards and promotions',
           styles: {
             fontSize: '18px',
             fontWeight: '600',
-            color: '#111827',
+            color: '#ffffff',
             textAlign: 'center',
             padding: '52px 36px',
-            background: 'linear-gradient(135deg, #ffffff 0%, #ecfdf5 100%)',
+            backgroundColor: '#1e293b',
             borderRadius: '24px',
-            boxShadow: '0 10px 25px -5px rgba(16, 185, 129, 0.15), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-            border: '1px solid rgba(16, 185, 129, 0.1)',
+            boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2)',
+            border: '2px solid rgba(245, 158, 11, 0.3)',
             maxWidth: '340px',
             margin: '0 auto',
             lineHeight: '1.7',
@@ -269,19 +271,20 @@ export const initialPageData = {
       id: 'payment',
       type: 'payment',
       styles: {
-        background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f0fdfa 100%)',
-        padding: '20px 0',
+        backgroundColor: '#101b3d',
+        background: 'linear-gradient(180deg, #101b3d 0%, #0f172a 100%)',
+        padding: '80px 0',
         textAlign: 'center',
       },
       children: [
         {
           id: 'payment-title',
           type: 'text',
-          content: 'Accepted Payment Methods',
+          content: 'Secure Payment Methods',
           styles: {
             fontSize: 'clamp(28px, 3.5vw, 42px)',
             fontWeight: '800',
-            color: '#111827',
+            color: '#ffffff',
             textAlign: 'center',
             marginBottom: '16px',
             letterSpacing: '-0.5px',
@@ -289,17 +292,18 @@ export const initialPageData = {
             marginLeft: 'auto',
             marginRight: 'auto',
             padding: '0 24px',
+            textShadow: '0 2px 10px rgba(0, 0, 0, 0.3)',
           },
           position: { x: 0, y: 0 }
         },
         {
           id: 'payment-subtitle',
           type: 'text',
-          content: 'Secure payments with all major providers',
+          content: 'Deposit and withdraw safely with trusted payment providers',
           styles: {
             fontSize: '17px',
             fontWeight: '400',
-            color: '#6b7280',
+            color: 'rgba(255, 255, 255, 0.8)',
             textAlign: 'center',
             marginBottom: '50px',
             maxWidth: '600px',
@@ -316,13 +320,13 @@ export const initialPageData = {
           styles: {
             fontSize: '56px',
             fontWeight: '400',
-            color: '#111827',
+            color: '#ffffff',
             textAlign: 'center',
             padding: '48px 70px',
-            background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
+            backgroundColor: '#1e293b',
             borderRadius: '28px',
-            boxShadow: '0 20px 25px -5px rgba(59, 130, 246, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
-            border: '1px solid rgba(59, 130, 246, 0.1)',
+            boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.2)',
+            border: '2px solid rgba(245, 158, 11, 0.3)',
             maxWidth: '850px',
             margin: '0 auto',
             letterSpacing: '10px',
@@ -335,17 +339,18 @@ export const initialPageData = {
       id: 'footer',
       type: 'footer',
       styles: {
-        backgroundColor: '#010718',
-        padding: '20px 0',
+        backgroundColor: '#0a0f1c',
+        background: 'linear-gradient(180deg, #0a0f1c 0%, #000000 100%)',
+        padding: '60px 0 30px',
         color: '#ffffff',
         textAlign: 'center',
-        borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+        borderTop: '2px solid rgba(245, 158, 11, 0.2)',
       },
       children: [
         {
           id: 'footer-brand',
           type: 'text',
-          content: '✨ Brand',
+          content: '🎰 NetBet Casino',
           styles: {
             fontSize: '26px',
             fontWeight: '800',
@@ -363,7 +368,7 @@ export const initialPageData = {
         {
           id: 'footer-tagline',
           type: 'text',
-          content: 'Building beautiful landing pages, one drag at a time.',
+          content: 'Play responsibly. 18+ only. Gambling can be addictive.',
           styles: {
             fontSize: '16px',
             fontWeight: '400',
@@ -381,7 +386,7 @@ export const initialPageData = {
         {
           id: 'footer-links',
           type: 'text',
-          content: 'About  •  Features  •  Pricing  •  Contact  •  Blog',
+          content: 'Games  •  Promotions  •  VIP Club  •  Support  •  Responsible Gaming',
           styles: {
             fontSize: '15px',
             fontWeight: '500',
@@ -399,7 +404,7 @@ export const initialPageData = {
         {
           id: 'footer-copyright',
           type: 'text',
-          content: '© 2024 Brand. All rights reserved.',
+          content: '© 2024 NetBet Casino. All rights reserved. Licensed and regulated.',
           styles: {
             fontSize: '14px',
             fontWeight: '400',
